@@ -31,3 +31,29 @@
     display: flex;
     flex-wrap: wrap;
 }
+
+.shimmer {
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+    margin: 10px;
+    background-color: lightgray;
+}
+
+.menu-list {
+    display: block;
+    flex-wrap: wrap;
+}
+
+.menu-list > img{
+    height: fit-content;
+    width: fit-content;
+    justify-content: space-around;
+}
+
+.menu {
+    width: fit-content;
+    border: 1px solid black;
+    padding: 2px;
+    margin: 10px;
+}
