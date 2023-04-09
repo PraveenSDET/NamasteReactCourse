@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Logo from "../assets/img/foodhub-logo.png";
 
 const Title = () => (
     <a href="/">
     <img
     id="logo"
-    src="https://www.tr2creative.co.uk/wp-content/uploads/2020/11/foodhub-svg.svg"
+    // src="https://www.tr2creative.co.uk/wp-content/uploads/2020/11/foodhub-svg.svg"
+    src= {Logo}
     alt="Food Hub Logo"
     key="img"
     >

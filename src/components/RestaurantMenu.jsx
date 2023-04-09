@@ -1,26 +1,19 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IMAGE_CDN_URL } from "../config";
+import useRestaurantMenu from "../utils/useRestaurantMenu";
+import useOfflineSupport from "../utils/useOfflineSupport"
 import Shimmer from "./Shimmer";
 
 const RestaurantMenu = () => {
     const {id} = useParams();
-    const [restaurantMenu, setrestaurantMenu] = useState([]);
+    
+    const restaurantMenu = useRestaurantMenu(id);
 
-    useEffect(()=> {
-        getRestaurantInfo()
-    }, [])
+    const isOffline = useOfflineSupport()
 
-    async function getRestaurantInfo() {
-        const restaurantMenu_data = await fetch(`https://www.swiggy.com/dapi/menu/pl?page-type=REGULAR_MENU&complete-menu=true&lat=11.0420173&lng=76.97586969999999&restaurantId=${id}&submitAction=ENTER`)
-        const restaurantMenu_json = await restaurantMenu_data.json()
-        // console.log(restaurantMenu_json)
-        console.log("Inside GET RESTAURANT USE EFFECT)")
-        setrestaurantMenu(restaurantMenu_json.data.cards)
-        // console.log(restaurantMenu)
+    if (isOffline) {
+      return <h1>☹︎Please check your internet connection!!!</h1>
     }
-
-    console.log("After use effect")
 
     return (restaurantMenu.length === 0) ? (<Shimmer />) : (
         <>

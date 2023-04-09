@@ -1,18 +1,14 @@
 import { useEffect, useState } from "react"
 import { restaurantList } from "../config"
 import { RestaurantCard } from "./RestaurantCard"
+import { filterRestaurantsBasedOnSearch } from "../utils/Helper"
 import Shimmer from "./Shimmer"
+import useOfflineSupport from "../utils/useOfflineSupport"
 
 const BodyComponent = () => {
     const [searchInput, setSearchInput] = useState("");
     const [allRestaurants, setAllRestaurants] = useState([]);
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
-    
-    function filterRestaurantsBasedOnSearch(searchInput, restaurants) {
-        const filteredRestaurants = restaurants.filter((restaurant)=> restaurant?.data?.name?.toLowerCase().includes(searchInput.toLowerCase()))
-        console.log(filteredRestaurants)
-        return filteredRestaurants
-    }
 
     useEffect(() => {
         getRestaurants()
@@ -24,6 +20,11 @@ const BodyComponent = () => {
         console.log(restaurantData_Json)
         setAllRestaurants(restaurantData_Json.data.cards[2].data.data.cards)
         setFilteredRestaurants(restaurantData_Json.data.cards[2].data.data.cards)
+    }
+
+    const isOffline = useOfflineSupport()
+    if (isOffline) {
+      return <h1>☹︎Please check your internet connection!!!</h1>
     }
 
     // if (filteredRestaurants.length === 0) return <h1>Oops!! No restaurants found. Please search for something else!!</h1>
